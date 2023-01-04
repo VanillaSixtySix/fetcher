@@ -17,6 +17,12 @@ created_at_format = '%a %b %d %Y %H:%M:%S GMT%z'
 async def on_ready():
     print('Ready')
 
+@bot.event
+async def on_message(message: discord.Message):
+    ctx = await bot.get_context(message)
+    if ctx.valid and message.author.bot:
+        await bot.invoke(ctx)
+
 
 @bot.command()
 async def whois(ctx: commands.Context, user_id: str):
