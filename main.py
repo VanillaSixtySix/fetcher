@@ -20,7 +20,7 @@ async def on_ready():
 @bot.event
 async def on_message(message: discord.Message):
     ctx = await bot.get_context(message)
-    if ctx.valid and message.author.bot:
+    if ctx.valid:
         await bot.invoke(ctx)
 
 
@@ -37,8 +37,8 @@ async def whois(ctx: commands.Context, user_id: str):
     embed \
         .add_field(name='User ID', value=str(found.id), inline=False) \
         .add_field(name='Created At', value=found.created_at.strftime(created_at_format), inline=False) \
-        .set_thumbnail(url=found.avatar.url) \
-        .set_author(name=f'{found.name}#{found.discriminator}', icon_url=found.avatar.url) \
+        .set_thumbnail(url=found.display_avatar.url) \
+        .set_author(name=f'{found.name}#{found.discriminator}', icon_url=found.display_avatar.url) \
         .set_footer(text='Local time')
     embed.timestamp = found.created_at
     await ctx.send(embed=embed)
